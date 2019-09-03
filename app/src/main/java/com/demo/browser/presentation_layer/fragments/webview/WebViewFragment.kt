@@ -70,6 +70,9 @@ class WebViewFragment : Fragment() {
                 //pass later to the viewmodel
                 //supportActionBar?.title = title
             }
+
         }
     }
+
+
 }
