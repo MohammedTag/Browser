@@ -19,16 +19,20 @@ class MainActivity : AppCompatActivity() {
 
         (application as App).compnant.inject(this)
 
+        progress_bar.max =100
+
         webView.settings.javaScriptEnabled = true
         webView.loadUrl("https://google.com")
         webView.webViewClient = WebViewClient()
         webView.webChromeClient= object : WebChromeClient(){
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
                 super.onProgressChanged(view, newProgress)
+                progress_bar.progress =newProgress
             }
 
             override fun onReceivedTitle(view: WebView?, title: String?) {
                 super.onReceivedTitle(view, title)
+                supportActionBar?.title = title
             }
         }
     }
