@@ -6,15 +6,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 
 import com.demo.browser.R
+import com.demo.browser.app.App
 import kotlinx.android.synthetic.main.fragment_web_view.*
+import javax.inject.Inject
 
 
 class WebViewFragment : Fragment() {
+
+    @Inject
+    lateinit var webViewViewModelFactory: WebViewViewModelFactory
+
+    private lateinit var webViewViewModel: WebViewViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,11 +36,19 @@ class WebViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity?.application as App).compnant.inject(this)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
+        webViewViewModel = ViewModelProviders.of(this, webViewViewModelFactory).get(WebViewViewModel::class.java)
 
         progress_bar.max =100
 
         webView.settings.javaScriptEnabled = true
-        webView.loadUrl("https://google.com")
+
+        webViewViewModel.urlHandel("https://google.com").observe(this, Observer {
+            webView.loadUrl(it)
+        })
+
         webView.webViewClient = WebViewClient()
         webView.webChromeClient= object : WebChromeClient(){
             override fun onProgressChanged(view: WebView?, newProgress: Int) {

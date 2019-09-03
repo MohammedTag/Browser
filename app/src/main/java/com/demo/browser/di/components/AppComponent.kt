@@ -2,6 +2,7 @@ package com.demo.browser.di.components
 
 import com.demo.browser.MainActivity
 import com.demo.browser.di.modules.ContextModule
+import com.demo.browser.domain_layer.usecases.url_use_case.UrlUseCaseModule
 import com.demo.browser.presentation_layer.fragments.webview.WebViewFragment
 import com.demo.browser.presentation_layer.fragments.webview.WebViewViewModelFactoryModule
 import dagger.Component
@@ -15,7 +16,8 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
     ContextModule::class,
-    WebViewViewModelFactoryModule::class
+    WebViewViewModelFactoryModule::class,
+    UrlUseCaseModule::class
 ])
 interface AppComponent {
 

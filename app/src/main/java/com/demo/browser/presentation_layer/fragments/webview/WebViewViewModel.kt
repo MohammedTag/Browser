@@ -1,7 +1,9 @@
 package com.demo.browser.presentation_layer.fragments.webview
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.demo.browser.domain_layer.usecases.url_use_case.UrlUseCase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -13,16 +15,18 @@ import javax.inject.Singleton
  */
 
 
-class WebViewViewModel(/*private val performanceUseCase: PerformanceUseCase*/) : ViewModel() {
+class WebViewViewModel(private val urlUserCase: UrlUseCase) : ViewModel() {
 
+
+   fun urlHandel(url:String): LiveData<String> = urlUserCase.run(url)
 
 }
 
-class WebViewViewModelFactory(/*private val performanceUseCase: PerformanceUseCase*/) : ViewModelProvider.Factory {
+class WebViewViewModelFactory(private val urlUserCase: UrlUseCase) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
         if (modelClass.isAssignableFrom(WebViewViewModel::class.java))
-            return WebViewViewModel(/*performanceUseCase*/) as T
+            return WebViewViewModel(urlUserCase) as T
 
         throw IllegalArgumentException("Unknown ViewModel class")
     }
@@ -33,5 +37,5 @@ class WebViewViewModelFactoryModule {
     @Provides
     @Singleton
 
-    fun ProvidesWebViewViewModelFactory(/*performanceUseCase: PerformanceUseCase*/): WebViewViewModelFactory = WebViewViewModelFactory(/*performanceUseCase*/)
+    fun ProvidesWebViewViewModelFactory(urlUserCase: UrlUseCase): WebViewViewModelFactory = WebViewViewModelFactory(urlUserCase)
 }
