@@ -14,28 +14,21 @@ import javax.inject.Singleton
 
 class UrlUseCase {
 
-    var string1  =MutableLiveData<String>()
+    var string1 = MutableLiveData<String>()
 
     fun run(urlText: String): MutableLiveData<String> {
-
-      /*  string.value = "https://www.google.com/search?q=$urlText"
-        return string*/
-
-         if (Patterns.WEB_URL.matcher(urlText.toLowerCase()).matches()) {
+        if (Patterns.WEB_URL.matcher(urlText.toLowerCase()).matches()) {
             if (urlText.contains("http://") || urlText.contains("https://")) {
                 this.string1.value = urlText
                 return string1
             } else {
-                string1.value = "https://www.google.com/search?q=$urlText"
+                string1.value = "http://$urlText"
                 return string1
             }
-        }
-        else MutableLiveData<String>().apply {
+        } else MutableLiveData<String>().apply {
             string1.value = "https://www.google.com/search?q=$urlText"
-             return string1
+            return string1
         }
-
-
     }
 }
 
