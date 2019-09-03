@@ -38,8 +38,17 @@ class WebViewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity?.application as App).compnant.inject(this)
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        /*activity?.let { activity->webViewViewModel = ViewModelProviders.of(activity, webViewViewModelFactory).get(WebViewViewModel::class.java) }*/
 
-        activity?.let { activity->webViewViewModel = ViewModelProviders.of(activity, webViewViewModelFactory).get(WebViewViewModel::class.java) }
+        webViewViewModel = ViewModelProviders.of(this, webViewViewModelFactory).get(WebViewViewModel::class.java)
+
+
+        searchBTN.setOnClickListener {
+            if (!main_edit_text.text.toString().isNullOrBlank()) {
+                webViewViewModel.urlHandel(main_edit_text.text.toString())
+            }
+        }
+
 
         progress_bar.max =100
 

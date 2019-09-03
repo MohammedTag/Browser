@@ -30,11 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         webViewViewModel = ViewModelProviders.of(this, webViewViewModelFactory).get(WebViewViewModel::class.java)
 
-        searchBTN.setOnClickListener {
-            if (!main_edit_text.text.toString().isNullOrBlank()) {
-                webViewViewModel.urlHandel(main_edit_text.text.toString())
-            }
-        }
+
 
         supportFragmentManager
             .beginTransaction()
