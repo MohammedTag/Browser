@@ -10,7 +10,6 @@ import android.view.WindowManager
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import com.demo.browser.R
@@ -37,41 +36,7 @@ class WebViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity?.application as App).compnant.inject(this)
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        /*activity?.let { activity->webViewViewModel = ViewModelProviders.of(activity, webViewViewModelFactory).get(WebViewViewModel::class.java) }*/
 
-        webViewViewModel = ViewModelProviders.of(this, webViewViewModelFactory).get(WebViewViewModel::class.java)
-
-
-        searchBTN.setOnClickListener {
-            if (!main_edit_text.text.toString().isNullOrBlank()) {
-                webViewViewModel.urlHandel(main_edit_text.text.toString())
-            }
-        }
-
-
-        progress_bar.max =100
-
-        webView.settings.javaScriptEnabled = true
-
-        webViewViewModel.urlHandel("https://google.com").observe(this, Observer {
-            webView.loadUrl(it)
-        })
-
-        webView.webViewClient = WebViewClient()
-        webView.webChromeClient= object : WebChromeClient(){
-            override fun onProgressChanged(view: WebView?, newProgress: Int) {
-                super.onProgressChanged(view, newProgress)
-                progress_bar.progress =newProgress
-            }
-
-            override fun onReceivedTitle(view: WebView?, title: String?) {
-                super.onReceivedTitle(view, title)
-                //pass later to the viewmodel
-                //supportActionBar?.title = title
-            }
-
-        }
     }
 
 
