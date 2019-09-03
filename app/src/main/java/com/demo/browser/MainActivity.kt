@@ -3,10 +3,12 @@ package com.demo.browser
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.demo.browser.app.App
 import com.demo.browser.presentation_layer.fragments.webview.WebViewFragment
 import com.demo.browser.presentation_layer.fragments.webview.WebViewViewModel
 import com.demo.browser.presentation_layer.fragments.webview.WebViewViewModelFactory
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +28,13 @@ class MainActivity : AppCompatActivity() {
 
         (application as App).compnant.inject(this)
 
+        webViewViewModel = ViewModelProviders.of(this, webViewViewModelFactory).get(WebViewViewModel::class.java)
+
+        searchBTN.setOnClickListener {
+            if (!main_edit_text.text.toString().isNullOrBlank()) {
+                webViewViewModel.urlHandel(main_edit_text.text.toString())
+            }
+        }
 
         supportFragmentManager
             .beginTransaction()

@@ -25,7 +25,7 @@ class UrlUseCase {
             }
         }
         else return MutableLiveData<String>().apply {
-            value = "https://www.google.com/search?q=$urlText"
+            this.value = "https://www.google.com/search?q=$urlText"
         }
 
 

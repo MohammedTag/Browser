@@ -39,7 +39,7 @@ class WebViewFragment : Fragment() {
         (activity?.application as App).compnant.inject(this)
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
-        webViewViewModel = ViewModelProviders.of(this, webViewViewModelFactory).get(WebViewViewModel::class.java)
+        activity?.let { activity->webViewViewModel = ViewModelProviders.of(activity, webViewViewModelFactory).get(WebViewViewModel::class.java) }
 
         progress_bar.max =100
 

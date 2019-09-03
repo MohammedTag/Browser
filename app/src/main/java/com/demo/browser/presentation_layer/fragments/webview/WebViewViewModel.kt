@@ -1,6 +1,7 @@
 package com.demo.browser.presentation_layer.fragments.webview
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.demo.browser.domain_layer.usecases.url_use_case.UrlUseCase
@@ -18,7 +19,7 @@ import javax.inject.Singleton
 class WebViewViewModel(private val urlUserCase: UrlUseCase) : ViewModel() {
 
 
-   fun urlHandel(url:String): LiveData<String> = urlUserCase.run(url)
+   fun urlHandel(url:String): MutableLiveData<String> = urlUserCase.run(url)
 
 }
 
