@@ -1,6 +1,8 @@
 package com.demo.browser.di.components
 
 import com.demo.browser.MainActivity
+import com.demo.browser.data_layer.RepositorySourceModule
+import com.demo.browser.data_layer.local.LocalDataSourceModule
 import com.demo.browser.data_layer.local.database.realm.RealmModule
 import com.demo.browser.di.modules.ContextModule
 import com.demo.browser.domain_layer.usecases.add_url_use_case.AddUrlsListUseCaseModule
@@ -23,7 +25,9 @@ import javax.inject.Singleton
     UrlUseCaseModule::class,
     RealmModule::class,
     AddUrlsListUseCaseModule::class,
-    RetrieveUrlsUseCaseModule::class
+    RetrieveUrlsUseCaseModule::class,
+    RepositorySourceModule::class,
+    LocalDataSourceModule::class
 ])
 interface AppComponent {
 

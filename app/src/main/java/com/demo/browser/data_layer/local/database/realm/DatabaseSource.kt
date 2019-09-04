@@ -16,7 +16,7 @@ interface DatabaseSource {
 
     fun addSuccessfulUrl(successfulUrlsList:ArrayList<SuccessfulUrl>)
 
-   /* fun getUrlSuggestionList(): RealmResultsLiveData<SuccessfulUrl>
-*/
+    fun getUrlSuggestionList(): RealmResultsLiveData<SuccessfulUrl>
+
     //endregion
 }

@@ -1,7 +1,10 @@
 package com.demo.browser.domain_layer.usecases.add_url_use_case
 
+import com.demo.browser.data_layer.RepositorySource
+import com.demo.browser.data_layer.models.SuccessfulUrl
 import dagger.Module
 import dagger.Provides
+import javax.inject.Inject
 import javax.inject.Singleton
 
 
@@ -10,24 +13,13 @@ import javax.inject.Singleton
  * Cairo, Egypt.
  */
 
-class AddUrlsListUseCase {
+class AddUrlsListUseCase @Inject constructor( private  val repositorySource: RepositorySource){
 
 
 
-  /*  fun run(urlText: String): MutableLiveData<String> {
-        if (Patterns.WEB_URL.matcher(urlText.toLowerCase()).matches()) {
-            if (urlText.contains("http://") || urlText.contains("https://")) {
-                this.string1.value = urlText
-                return string1
-            } else {
-                string1.value = "http://$urlText"
-                return string1
-            }
-        } else MutableLiveData<String>().apply {
-            string1.value = "https://www.google.com/search?q=$urlText"
-            return string1
-        }
-    }*/
+   fun run(successfulUrlsList:ArrayList<SuccessfulUrl>) {
+       repositorySource.addSuccessfulUrl(successfulUrlsList)
+    }
 }
 
 @Module
@@ -35,5 +27,5 @@ class AddUrlsListUseCaseModule {
 
     @Provides
     @Singleton
-    fun provideAddUrlsListUseCase(/*searchRepository: SearchRepository*/) = AddUrlsListUseCase(/*searchRepository*/)
+    fun provideAddUrlsListUseCase( repositorySource: RepositorySource) = AddUrlsListUseCase(repositorySource)
 }

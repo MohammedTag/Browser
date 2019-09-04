@@ -1,7 +1,11 @@
 package com.demo.browser.domain_layer.usecases.retrieve_urls_use_case
 
+import androidx.lifecycle.LiveData
+import com.demo.browser.data_layer.RepositorySource
+import com.demo.browser.data_layer.models.SuccessfulUrl
 import dagger.Module
 import dagger.Provides
+import javax.inject.Inject
 import javax.inject.Singleton
 
 
@@ -11,24 +15,12 @@ import javax.inject.Singleton
  */
 
 
-class RetrieveUrlsUseCase {
+class RetrieveUrlsUseCase @Inject constructor(private val repositorySource: RepositorySource) {
 
 
-
-    /*  fun run(urlText: String): MutableLiveData<String> {
-          if (Patterns.WEB_URL.matcher(urlText.toLowerCase()).matches()) {
-              if (urlText.contains("http://") || urlText.contains("https://")) {
-                  this.string1.value = urlText
-                  return string1
-              } else {
-                  string1.value = "http://$urlText"
-                  return string1
-              }
-          } else MutableLiveData<String>().apply {
-              string1.value = "https://www.google.com/search?q=$urlText"
-              return string1
-          }
-      }*/
+    fun run(): LiveData<List<SuccessfulUrl>> {
+        return repositorySource.getUrlSuggestionList()
+    }
 }
 
 @Module
@@ -36,5 +28,5 @@ class RetrieveUrlsUseCaseModule {
 
     @Provides
     @Singleton
-    fun provideRetrieveUrlsUseCase(/*searchRepository: SearchRepository*/) = RetrieveUrlsUseCase(/*searchRepository*/)
+    fun provideRetrieveUrlsUseCase(repositorySource: RepositorySource) = RetrieveUrlsUseCase(repositorySource)
 }
