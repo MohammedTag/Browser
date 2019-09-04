@@ -14,6 +14,7 @@ import com.demo.browser.presentation_layer.fragments.webview.WebViewViewModel
 import com.demo.browser.presentation_layer.fragments.webview.WebViewViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.lifecycle.Observer
+import com.demo.browser.data_layer.models.SuccessfulUrl
 import kotlinx.android.synthetic.main.fragment_web_view.*
 import javax.inject.Inject
 
@@ -23,7 +24,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var webViewViewModelFactory: WebViewViewModelFactory
 
     private lateinit var webViewViewModel: WebViewViewModel
-
+    
+    private var sggestedUrlsList : MutableList<SuccessfulUrl> = arrayListOf()
+    
     lateinit var context: Context
 
 
@@ -56,6 +59,10 @@ class MainActivity : AppCompatActivity() {
 
         webViewViewModel.urlHandel("https://google.com").observe(this, Observer {
             webView.loadUrl(it)
+            val successfulUrl = SuccessfulUrl()
+            successfulUrl.Url =it
+            sggestedUrlsList.add(successfulUrl)
+            webViewViewModel.saveSuccessfulUrlList(sggestedUrlsList as ArrayList<SuccessfulUrl>)
         })
 
         webView.webViewClient = WebViewClient()

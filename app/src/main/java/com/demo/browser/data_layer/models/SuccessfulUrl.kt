@@ -13,6 +13,6 @@ import io.realm.annotations.RealmClass
 open class SuccessfulUrl :RealmObject(){
 
     @PrimaryKey
-    var Url:String? =null
+    var Url:String? = ""
 
 }

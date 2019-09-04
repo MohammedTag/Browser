@@ -5,6 +5,7 @@ import androidx.multidex.MultiDexApplication
 import com.demo.browser.di.components.AppComponent
 import com.demo.browser.di.components.DaggerAppComponent
 import com.demo.browser.di.modules.ContextModule
+import io.realm.Realm
 
 
 /**
@@ -25,7 +26,7 @@ class App: MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-
+        Realm.init(this)
         context = this
         compnant = initDagger(this.applicationContext)
     }
