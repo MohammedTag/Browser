@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             override fun onReceivedTitle(view: WebView?, title: String?) {
                 super.onReceivedTitle(view, title)
                 //pass later to the viewmodel
-                //supportActionBar?.title = title
+                supportActionBar?.title = title
             }
 
         }
