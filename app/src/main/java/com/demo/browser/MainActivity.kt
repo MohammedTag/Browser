@@ -8,13 +8,12 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.demo.browser.app.App
 import com.demo.browser.presentation_layer.fragments.webview.WebViewViewModel
 import com.demo.browser.presentation_layer.fragments.webview.WebViewViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
-import androidx.lifecycle.Observer
-import com.demo.browser.data_layer.models.SuccessfulUrl
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -24,10 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var webViewViewModel: WebViewViewModel
 
-    private var suggestedUrlsList = ArrayList<String> ()
 
-    private var successfulUrlsList = SuccessfulUrl()
-    
+
     lateinit var context: Context
 
 
@@ -54,44 +51,49 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        val list = ArrayList<String>()
 
 
 
 
-        progress_bar.max =100
+
+        progress_bar.max = 100
 
         webView.settings.javaScriptEnabled = true
 
         webViewViewModel.urlHandel("https://google.com").observe(this, Observer {
             webView.loadUrl(it)
-            list.add(it)
-            val csvList = StringBuilder()
-            for (s in list) {
-                csvList.append(s)
-                csvList.append(",")
+
+            if (it != "https://google.com") {
+                val list = ArrayList<String>()
+                list.add(main_edit_text.text.toString())
+                val csvList = StringBuilder()
+                for (s in list) {
+                    csvList.append(s)
+                    csvList.append(",")
+                }
+                webViewViewModel.saveSuccessfulUrlList(csvList.toString())
+                webViewViewModel.retrieveUrlsList()
+
             }
-            webViewViewModel.saveSuccessfulUrlList(csvList.toString())
-            webViewViewModel.retrieveUrlsList()
+
         })
 
         webViewViewModel.retrieveUrlsList().observe(this, Observer {
-            suggestedUrlsList.addAll(it)
-            suggestedUrlsList.sort()
-            var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, suggestedUrlsList)
+            it
+            var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, it)
 
-            main_edit_text.setAdapter(adapter)
+            main_edit_text?.setAdapter(adapter)
 
             main_edit_text.setOnItemClickListener { parent, view, position, id ->
-               // clubID = getClubIdByName(clubsList, club_name.text.toString())
-                webViewViewModel.urlHandel(suggestedUrlsList[position])
+                // clubID = getClubIdByName(clubsList, club_name.text.toString())
+                webViewViewModel.urlHandel(it[position])
             }
         })
         webView.webViewClient = WebViewClient()
-        webView.webChromeClient= object : WebChromeClient(){
+        webView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
                 super.onProgressChanged(view, newProgress)
-                progress_bar.progress =newProgress
+                progress_bar.progress = newProgress
             }
 
             override fun onReceivedTitle(view: WebView?, title: String?) {
@@ -105,10 +107,9 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        if (webView.canGoBack())
-        {
+        if (webView.canGoBack()) {
             webView.goBack()
-        }else{
+        } else {
             finish()
         }
     }

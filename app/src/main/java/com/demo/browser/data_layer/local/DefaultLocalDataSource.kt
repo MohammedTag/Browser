@@ -25,7 +25,6 @@ class DefaultLocalDataSource constructor(private val mPreferencesDataSource: Pre
     override fun getUrlSuggestionList(): LiveData<List<String>> {
         val csvList = mPreferencesDataSource.get(USER_SUCCESSFUL_URL_HISTORY, "")
         urlsListAsLiveData.value = csvList?.split(",")
-
         return urlsListAsLiveData
     }
 
