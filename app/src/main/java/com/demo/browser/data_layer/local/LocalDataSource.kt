@@ -1,7 +1,6 @@
 package com.demo.browser.data_layer.local
 
 import androidx.lifecycle.LiveData
-import com.demo.browser.data_layer.local.database.realm.utils.RealmResultsLiveData
 import com.demo.browser.data_layer.models.SuccessfulUrl
 
 
@@ -11,7 +10,7 @@ import com.demo.browser.data_layer.models.SuccessfulUrl
  */
 interface LocalDataSource {
 
-    fun addSuccessfulUrl(successfulUrlsList: SuccessfulUrl)
+    fun addSuccessfulUrl(successfulUrlsList: String)
 
     fun getUrlSuggestionList(): LiveData<List<String>>
 }

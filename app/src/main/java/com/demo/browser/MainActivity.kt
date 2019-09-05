@@ -10,13 +10,11 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.demo.browser.app.App
-import com.demo.browser.presentation_layer.fragments.webview.WebViewFragment
 import com.demo.browser.presentation_layer.fragments.webview.WebViewViewModel
 import com.demo.browser.presentation_layer.fragments.webview.WebViewViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.lifecycle.Observer
 import com.demo.browser.data_layer.models.SuccessfulUrl
-import kotlinx.android.synthetic.main.fragment_web_view.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -56,14 +54,24 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        val list = ArrayList<String>()
+
+
+
+
         progress_bar.max =100
 
         webView.settings.javaScriptEnabled = true
 
         webViewViewModel.urlHandel("https://google.com").observe(this, Observer {
             webView.loadUrl(it)
-            val successfulUrl = SuccessfulUrl()
-            webViewViewModel.saveSuccessfulUrlList(successfulUrl )
+            list.add(it)
+            val csvList = StringBuilder()
+            for (s in list) {
+                csvList.append(s)
+                csvList.append(",")
+            }
+            webViewViewModel.saveSuccessfulUrlList(csvList.toString())
             webViewViewModel.retrieveUrlsList()
         })
 
@@ -76,6 +84,7 @@ class MainActivity : AppCompatActivity() {
 
             main_edit_text.setOnItemClickListener { parent, view, position, id ->
                // clubID = getClubIdByName(clubsList, club_name.text.toString())
+                webViewViewModel.urlHandel(suggestedUrlsList[position])
             }
         })
         webView.webViewClient = WebViewClient()
@@ -87,7 +96,6 @@ class MainActivity : AppCompatActivity() {
 
             override fun onReceivedTitle(view: WebView?, title: String?) {
                 super.onReceivedTitle(view, title)
-                //pass later to the viewmodel
                 supportActionBar?.title = title
             }
 

@@ -20,7 +20,7 @@ class DataSource @Inject constructor(private val localDataSource: LocalDataSourc
        return localDataSource.getUrlSuggestionList()
     }
 
-    override fun addSuccessfulUrl(successfulUrlsList: SuccessfulUrl) {
+    override fun addSuccessfulUrl(successfulUrlsList: String) {
         localDataSource.addSuccessfulUrl(successfulUrlsList)
     }
 
