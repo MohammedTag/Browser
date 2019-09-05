@@ -18,7 +18,7 @@ class RealmDataBase : DatabaseSource {
 
 
 
-    override fun addSuccessfulUrl(successfulUrlsList: ArrayList<SuccessfulUrl>) {
+    override fun addSuccessfulUrl(successfulUrlsList: SuccessfulUrl) {
 
             Realm.getDefaultInstance().executeTransactionAsync { it.insertOrUpdate(successfulUrlsList) }
 

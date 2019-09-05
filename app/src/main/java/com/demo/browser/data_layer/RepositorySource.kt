@@ -9,7 +9,7 @@ import com.demo.browser.data_layer.models.SuccessfulUrl
  * Cairo, Egypt.
  */
 interface RepositorySource {
-    fun addSuccessfulUrl(successfulUrlsList: ArrayList<SuccessfulUrl>)
+    fun addSuccessfulUrl(successfulUrlsList: SuccessfulUrl)
 
-    fun getUrlSuggestionList(): LiveData<List<SuccessfulUrl>>
+    fun getUrlSuggestionList(): LiveData<List<String>>
 }

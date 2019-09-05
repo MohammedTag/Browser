@@ -17,7 +17,7 @@ class AddUrlsListUseCase @Inject constructor( private  val repositorySource: Rep
 
 
 
-   fun run(successfulUrlsList:ArrayList<SuccessfulUrl>) {
+   fun run(successfulUrlsList:SuccessfulUrl) {
        repositorySource.addSuccessfulUrl(successfulUrlsList)
     }
 }

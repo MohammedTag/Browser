@@ -2,6 +2,7 @@ package com.demo.browser.data_layer.local.database.realm
 
 import com.demo.browser.data_layer.local.database.realm.utils.RealmResultsLiveData
 import com.demo.browser.data_layer.models.SuccessfulUrl
+import io.realm.RealmList
 import java.net.URL
 
 
@@ -14,7 +15,7 @@ interface DatabaseSource {
 
     //region database
 
-    fun addSuccessfulUrl(successfulUrlsList:ArrayList<SuccessfulUrl>)
+    fun addSuccessfulUrl(successfulUrlsList: SuccessfulUrl)
 
     fun getUrlSuggestionList(): RealmResultsLiveData<SuccessfulUrl>
 

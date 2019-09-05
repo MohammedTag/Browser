@@ -16,11 +16,11 @@ import javax.inject.Singleton
  */
 
 class DataSource @Inject constructor(private val localDataSource: LocalDataSource) : RepositorySource {
-    override fun getUrlSuggestionList(): LiveData<List<SuccessfulUrl>> {
+    override fun getUrlSuggestionList(): LiveData<List<String>> {
        return localDataSource.getUrlSuggestionList()
     }
 
-    override fun addSuccessfulUrl(successfulUrlsList: ArrayList<SuccessfulUrl>) {
+    override fun addSuccessfulUrl(successfulUrlsList: SuccessfulUrl) {
         localDataSource.addSuccessfulUrl(successfulUrlsList)
     }
 

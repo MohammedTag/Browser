@@ -1,8 +1,8 @@
 package com.demo.browser.domain_layer.usecases.retrieve_urls_use_case
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.demo.browser.data_layer.RepositorySource
-import com.demo.browser.data_layer.models.SuccessfulUrl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Inject
@@ -18,7 +18,8 @@ import javax.inject.Singleton
 class RetrieveUrlsUseCase @Inject constructor(private val repositorySource: RepositorySource) {
 
 
-    fun run(): LiveData<List<SuccessfulUrl>> {
+
+    fun run(): LiveData<List<String>> {
         return repositorySource.getUrlSuggestionList()
     }
 }

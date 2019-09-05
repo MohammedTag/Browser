@@ -11,7 +11,7 @@ import com.demo.browser.data_layer.models.SuccessfulUrl
  */
 interface LocalDataSource {
 
-    fun addSuccessfulUrl(successfulUrlsList:ArrayList<SuccessfulUrl>)
+    fun addSuccessfulUrl(successfulUrlsList: SuccessfulUrl)
 
-    fun getUrlSuggestionList(): LiveData<List<SuccessfulUrl>>
+    fun getUrlSuggestionList(): LiveData<List<String>>
 }

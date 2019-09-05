@@ -28,8 +28,8 @@ class WebViewViewModel(
 
 
     fun urlHandel(url: String): MutableLiveData<String> = urlUserCase.run(url)
-    fun saveSuccessfulUrlList(successfulUrlsList: ArrayList<SuccessfulUrl>) = addUrlsListUseCase.run(successfulUrlsList)
-    fun retrieveUrlsList() : LiveData<List<SuccessfulUrl>> = retrieveUrlsUseCase.run()
+    fun saveSuccessfulUrlList(successfulUrlsList: SuccessfulUrl) = addUrlsListUseCase.run(successfulUrlsList)
+    fun retrieveUrlsList() : LiveData<List<String>> = retrieveUrlsUseCase.run()
 
 }
 

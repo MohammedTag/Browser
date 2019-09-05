@@ -25,8 +25,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var webViewViewModelFactory: WebViewViewModelFactory
 
     private lateinit var webViewViewModel: WebViewViewModel
-    
-    private var sggestedUrlsList = ArrayList<SuccessfulUrl> ()
+
+    private var suggestedUrlsList = ArrayList<String> ()
+
+    private var successfulUrlsList = SuccessfulUrl()
     
     lateinit var context: Context
 
@@ -61,20 +63,19 @@ class MainActivity : AppCompatActivity() {
         webViewViewModel.urlHandel("https://google.com").observe(this, Observer {
             webView.loadUrl(it)
             val successfulUrl = SuccessfulUrl()
-            successfulUrl.Url =it
-            sggestedUrlsList.add(successfulUrl)
-            webViewViewModel.saveSuccessfulUrlList(sggestedUrlsList as ArrayList<SuccessfulUrl>)
+            webViewViewModel.saveSuccessfulUrlList(successfulUrl )
+            webViewViewModel.retrieveUrlsList()
         })
 
         webViewViewModel.retrieveUrlsList().observe(this, Observer {
-            sggestedUrlsList.addAll(it)
-            sggestedUrlsList.sortBy {list->list.Url }
-            var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sggestedUrlsList as List<SuccessfulUrl>)
+            suggestedUrlsList.addAll(it)
+            suggestedUrlsList.sort()
+            var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, suggestedUrlsList)
 
             main_edit_text.setAdapter(adapter)
 
             main_edit_text.setOnItemClickListener { parent, view, position, id ->
-                clubID = getClubIdByName(clubsList, club_name.text.toString())
+               // clubID = getClubIdByName(clubsList, club_name.text.toString())
             }
         })
         webView.webViewClient = WebViewClient()
