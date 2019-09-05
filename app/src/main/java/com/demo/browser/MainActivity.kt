@@ -6,6 +6,7 @@ import android.view.WindowManager
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.demo.browser.app.App
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var webViewViewModel: WebViewViewModel
     
-    private var sggestedUrlsList : MutableList<SuccessfulUrl> = arrayListOf()
+    private var sggestedUrlsList = ArrayList<SuccessfulUrl> ()
     
     lateinit var context: Context
 
@@ -65,6 +66,17 @@ class MainActivity : AppCompatActivity() {
             webViewViewModel.saveSuccessfulUrlList(sggestedUrlsList as ArrayList<SuccessfulUrl>)
         })
 
+        webViewViewModel.retrieveUrlsList().observe(this, Observer {
+            sggestedUrlsList.addAll(it)
+            sggestedUrlsList.sortBy {list->list.Url }
+            var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sggestedUrlsList as List<SuccessfulUrl>)
+
+            main_edit_text.setAdapter(adapter)
+
+            main_edit_text.setOnItemClickListener { parent, view, position, id ->
+                clubID = getClubIdByName(clubsList, club_name.text.toString())
+            }
+        })
         webView.webViewClient = WebViewClient()
         webView.webChromeClient= object : WebChromeClient(){
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
