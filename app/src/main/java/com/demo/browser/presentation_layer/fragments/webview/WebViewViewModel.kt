@@ -27,6 +27,8 @@ class WebViewViewModel(
     ViewModel() {
 
 
+    /** managging the use cases needed*/
+
     fun urlHandel(url: String): MutableLiveData<String> = urlUserCase.run(url)
     fun saveSuccessfulUrlList(successfulUrlsList: String) = addUrlsListUseCase.run(successfulUrlsList)
     fun retrieveUrlsList() : LiveData<List<String>> = retrieveUrlsUseCase.run()

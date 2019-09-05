@@ -15,6 +15,8 @@ import javax.inject.Singleton
  * Cairo, Egypt.
  */
 
+
+/**  main source of data and usually in a real project it would be dealing with a remote source as well */
 class DataSource @Inject constructor(private val localDataSource: LocalDataSource) : RepositorySource {
     override fun getUrlSuggestionList(): LiveData<List<String>> {
        return localDataSource.getUrlSuggestionList()

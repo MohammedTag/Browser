@@ -17,6 +17,8 @@ import javax.inject.Singleton
  */
 class DefaultLocalDataSource constructor(private val mPreferencesDataSource: PreferencesSource) : LocalDataSource {
 
+    /** shared prefrences is used for simplicity*/
+
     val urlsListAsLiveData = MutableLiveData<List<String>>()
     override fun addSuccessfulUrl(successfulUrlsList: String) {
         mPreferencesDataSource.set(USER_SUCCESSFUL_URL_HISTORY, successfulUrlsList)

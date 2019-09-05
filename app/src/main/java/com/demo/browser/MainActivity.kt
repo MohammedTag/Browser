@@ -24,9 +24,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var webViewViewModel: WebViewViewModel
 
 
-
     lateinit var context: Context
-
+    /**this project is built using android architecture components MVVM and live data, dagger ,adn clean architecture
+     * , repository pattern for adding abstraction layers between
+     * the levels of the architecture **/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                     csvList.append(s)
                     csvList.append(",")
                 }
+
                 webViewViewModel.saveSuccessfulUrlList(csvList.toString())
                 webViewViewModel.retrieveUrlsList()
 
