@@ -81,7 +81,6 @@ class MainActivity : AppCompatActivity() {
         })
 
         webViewViewModel.retrieveUrlsList().observe(this, Observer {
-            it
             var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, it)
 
             main_edit_text?.setAdapter(adapter)
