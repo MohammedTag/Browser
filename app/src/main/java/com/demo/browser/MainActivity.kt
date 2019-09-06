@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
+        val list = ArrayList<String>()
         progress_bar.max = 100
 
         webView.settings.javaScriptEnabled = true
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             webView.loadUrl(it)
 
             if (it != "https://google.com") {
-                val list = ArrayList<String>()
+
                 list.add(main_edit_text.text.toString())
                 val csvList = StringBuilder()
                 for (s in list) {
