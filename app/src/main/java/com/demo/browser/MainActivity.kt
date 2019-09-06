@@ -87,7 +87,6 @@ class MainActivity : AppCompatActivity() {
             main_edit_text?.setAdapter(adapter)
 
             main_edit_text.setOnItemClickListener { parent, view, position, id ->
-                // clubID = getClubIdByName(clubsList, club_name.text.toString())
                 webViewViewModel.urlHandel(it[position])
             }
         })
