@@ -37,5 +37,5 @@ class UrlUseCaseModule {
 
     @Provides
     @Singleton
-    fun provideUrlUseCase(/*searchRepository: SearchRepository*/) = UrlUseCase(/*searchRepository*/)
+    fun provideUrlUseCase() = UrlUseCase()
 }
